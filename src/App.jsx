@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { supabase } from './Supabase/supabaseClient'
 import LoginPage from "./LoginPage.jsx"
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import GalleryView from './components/GalleyView/GalleryView'
 
@@ -56,7 +54,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<GalleryView galleries={galleries} paintings={paintings}/>} />
+        <Route path="/" element={<LoginPage/>} />
+        <Route path="/galleries" element={<GalleryView galleries={galleries} paintings={paintings}/>} />
       </Routes>
     </BrowserRouter>
   )

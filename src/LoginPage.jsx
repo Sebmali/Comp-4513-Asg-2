@@ -1,6 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // Todo: add authentication logic here
+    console.log("Login successful, navigating to galleries route");
+    // If login is successful, navigate to the galleries route
+    navigate("/galleries");
+  };
+
   return (
     <div
       className="min-h-screen flex flex-col items-center bg-cover bg-center"
@@ -42,6 +53,7 @@ const LoginPage = () => {
             <button
               type="submit"
               className="flex-1 bg-gray-300 text-black py-2 rounded hover:bg-gray-400"
+              onClick={handleLogin}
             >
               Login
             </button>
