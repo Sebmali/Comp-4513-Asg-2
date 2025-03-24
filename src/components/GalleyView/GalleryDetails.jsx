@@ -18,35 +18,35 @@ function GalleryDetails({ selectedGallery, onAddToFavorites }) {
 
   // Destructure gallery fields for easier usage
   const {
-    GalleryName,
-    GalleryNativeName,
-    GalleryCity,
-    GalleryAddress,
-    GalleryCountry,
-    GalleryWebSite,
-    Latitude,
-    Longitude,
-    GalleryID
+    galleryName,
+    galleryNativeName,
+    galleryCity,
+    galleryAddress,
+    galleryCountry,
+    galleryWebSite,
+    latitude,
+    longitude,
+    galleryID
   } = selectedGallery;
 
   return (
-    <section className="border p-4">
+    <section className="border p-4 flex flex-col gap-4 h-full">
       <h2 className="text-lg font-semibold mb-3">Gallery Information</h2>
-      <p><strong>Name:</strong> {GalleryName}</p>
-      <p><strong>Native Name:</strong> {GalleryNativeName}</p>
-      <p><strong>City:</strong> {GalleryCity}</p>
-      <p><strong>Address:</strong> {GalleryAddress}</p>
-      <p><strong>Country:</strong> {GalleryCountry}</p>
+      <p><strong>Name:</strong> {galleryName}</p>
+      <p><strong>Native Name:</strong> {galleryNativeName}</p>
+      <p><strong>City:</strong> {galleryCity}</p>
+      <p><strong>Address:</strong> {galleryAddress}</p>
+      <p><strong>Country:</strong> {galleryCountry}</p>
       <p>
         <strong>Website:</strong>{' '}
-        {GalleryWebSite ? (
+        {galleryWebSite ? (
           <a
-            href={GalleryWebSite}
+            href={galleryWebSite}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline"
           >
-            {GalleryWebSite}
+            {galleryWebSite}
           </a>
         ) : (
           'N/A'
@@ -57,7 +57,7 @@ function GalleryDetails({ selectedGallery, onAddToFavorites }) {
       <button
         type="button"
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        onClick={() => onAddToFavorites(GalleryID)}
+        onClick={() => onAddToFavorites(galleryID)}
       >
         Add to Favorites
       </button>

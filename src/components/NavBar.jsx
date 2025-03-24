@@ -54,11 +54,18 @@ function NavBar () {
 
       {/* SEARCH DROPDOWN */}
       {isSearchOpen && (
-        <div className="absolute top-full right-4 mt-2 bg-white border shadow-md p-2 z-10">
+        <div className="absolute top-full right-4 mt-2 bg-gray-800 text-black border shadow-md p-2 z-10">
           <input
             type="text"
             placeholder="Search..."
-            className="border p-2 focus:outline-none"
+            className="block w-full 
+                        px-4 py-2
+                        bg-gray-600
+                        hover:bg-gray-500
+                        rounded-md
+                        focus:outline-none
+                        focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-700
+                        transition-colors duration-150 ease-in-out text-white"
             // Optionally handle the search logic here or via a form submit
           />
         </div>
@@ -66,12 +73,19 @@ function NavBar () {
 
       {/* NAV MENU DROPDOWN */}
       {isMenuOpen && (
-        <div className="absolute top-full right-4 mt-2 bg-white border shadow-md p-2 z-10">
+        <div className="absolute top-full right-4 mt-2 bg-gray-800 text-black border shadow-md p-2 z-10">
           <ul className="flex flex-col space-y-2">
             <li>
               <Link
                 to="/artists"
-                className="hover:text-blue-500"
+                className="block w-full 
+                        px-4 py-2
+                        bg-gray-600
+                        hover:bg-gray-500 hover:text-blue-300
+                        rounded-md
+                        focus:outline-none
+                        focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-700
+                        transition-colors duration-150 ease-in-out text-white"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Artists
@@ -80,7 +94,14 @@ function NavBar () {
             <li>
               <Link
                 to="/paintings"
-                className="hover:text-blue-500"
+                className="block w-full 
+                        px-4 py-2
+                        bg-gray-600
+                        hover:bg-gray-500 hover:text-blue-300
+                        rounded-md
+                        focus:outline-none
+                        focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-700
+                        transition-colors duration-150 ease-in-out text-white"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Paintings
@@ -89,7 +110,14 @@ function NavBar () {
             <li>
               <Link
                 to="/galleries"
-                className="hover:text-blue-500"
+                className="block w-full 
+                        px-4 py-2
+                        bg-gray-600
+                        hover:bg-gray-500 hover:text-blue-300
+                        rounded-md
+                        focus:outline-none
+                        focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-700
+                        transition-colors duration-150 ease-in-out text-white"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Galleries
@@ -98,7 +126,14 @@ function NavBar () {
             <li>
               <Link
                 to="/genres"
-                className="hover:text-blue-500"
+                className="block w-full 
+                        px-4 py-2
+                        bg-gray-600
+                        hover:bg-gray-500 hover:text-blue-300
+                        rounded-md
+                        focus:outline-none
+                        focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-700
+                        transition-colors duration-150 ease-in-out text-white"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Genres
@@ -107,7 +142,14 @@ function NavBar () {
             <li>
               <Link
                 to="/favorites"
-                className="hover:text-blue-500"
+                className="block w-full 
+                        px-4 py-2
+                        bg-gray-600
+                        hover:bg-gray-500 hover:text-blue-300
+                        rounded-md
+                        focus:outline-none
+                        focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-700
+                        transition-colors duration-150 ease-in-out text-white"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Favorites
@@ -116,7 +158,14 @@ function NavBar () {
             <li>
               <Link
                 to="/about"
-                className="hover:text-blue-500"
+                className="block w-full 
+                        px-4 py-2
+                        bg-gray-600
+                        hover:bg-gray-500 hover:text-blue-300
+                        rounded-md
+                        focus:outline-none
+                        focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-700
+                        transition-colors duration-150 ease-in-out text-white"
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
