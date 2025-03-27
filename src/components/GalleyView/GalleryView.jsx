@@ -3,8 +3,9 @@ import NavBar from '../NavBar';
 import GalleryList from './GalleryList';
 import GalleryDetails from './GalleryDetails';
 import PaintingsList from './PaintingList';
+import FooterBar from '../FooterBar';
 
-function GalleryView({ galleries, paintings}) {
+function GalleryView({ galleries, paintings, artists }) {
   const [selectedGalleryId, setSelectedGalleryId] = useState(null);
   const [selectedGallery, setSelectedGallery] = useState(null);
   const [selectedPaintingId, setSelectedPaintingId] = useState(null);
@@ -60,8 +61,9 @@ function GalleryView({ galleries, paintings}) {
       <main className="grid grid-cols-3 gap-4 flex-grow p-4 h-full overflow-hidden ">
         <GalleryList galleries={galleries} onSelectGallery={handleSelectGallery} />
         <GalleryDetails selectedGallery={selectedGallery} onAddToFavorites={handleAddToFavorites} />
-        <PaintingsList paintings={filteredPaintings} onSelectPainting={handleSelectPainting} onSortChange={handleSortChange} />
+        <PaintingsList paintings={filteredPaintings} artists={artists} onSelectPainting={handleSelectPainting} onSortChange={handleSortChange} />
       </main>
+      <FooterBar />
     </div>
   );
 }

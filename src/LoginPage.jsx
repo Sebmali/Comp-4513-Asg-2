@@ -6,70 +6,66 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Todo: add authentication logic here
+    // Todo: Add authentication logic here
     console.log("Login successful, navigating to galleries route");
-    // If login is successful, navigate to the galleries route
     navigate("/galleries");
   };
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center bg-cover bg-center"
+      className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
       style={{
-        backgroundImage: `url('https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+        backgroundImage: `url('https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?q=80&w=1964&auto=format&fit=crop')`,
       }}
     >
-      {/* Top Heading */}
-      <header className="mt-8">
-        <h1 className="text-2xl font-bold text-black">Your Application Name</h1>
-      </header>
+      {/* Form Container */}
+      <div className="bg-gray-800/90 rounded-xl shadow-xl p-8 w-full max-w-md backdrop-blur-sm">
+        <h2 className="text-3xl font-bold text-white text-center mb-6">🔐 Welcome to Artisphere</h2>
 
-      {/* Centered Form */}
-      <main className="flex-1 flex items-center justify-center w-full">
-        <form className="bg-gray-200 p-8 rounded shadow-md w-full max-w-sm">
-          <h2 className="text-xl font-semibold mb-6 text-center">Login</h2>
-
+        <form onSubmit={handleLogin}>
+          {/* Email */}
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-1">Email</label>
+            <label className="block text-gray-300 font-medium mb-1">Email</label>
             <input
               type="email"
-              className="w-full px-3 py-2 border border-gray-300 rounded"
+              required
+              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
               placeholder="Enter your email"
             />
           </div>
 
+          {/* Password */}
           <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-1">
-              Password
-            </label>
+            <label className="block text-gray-300 font-medium mb-1">Password</label>
             <input
               type="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded"
+              required
+              className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
               placeholder="Enter your password"
             />
           </div>
 
-          <div className="flex justify-between space-x-2">
+          {/* Buttons */}
+          <div className="flex space-x-3">
             <button
               type="submit"
-              className="flex-1 bg-gray-300 text-black py-2 rounded hover:bg-gray-400"
-              onClick={handleLogin}
+              className="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95"
             >
               Login
             </button>
             <button
               type="button"
-              className="flex-1 bg-gray-300 text-black py-2 rounded hover:bg-gray-400"
+              className="flex-1 bg-gray-600 hover:bg-gray-700 text-gray-200 py-2 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95"
             >
               Register
             </button>
           </div>
         </form>
-      </main>
+      </div>
 
-      {/* Footer */}
-      <footer className="mb-4">
-        <p className="italic text-sm text-black">Hero image credit</p>
+      {/* Footer Credit */}
+      <footer className="mt-8 text-xs text-gray-300 italic">
+        Background image via Unsplash
       </footer>
     </div>
   );

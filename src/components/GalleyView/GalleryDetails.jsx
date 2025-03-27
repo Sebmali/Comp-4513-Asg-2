@@ -1,22 +1,35 @@
-// GalleryDetails.jsx
+import React, { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
-import React from 'react';
-// If you're using React Leaflet, uncomment these imports:
-// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-// import 'leaflet/dist/leaflet.css';
+// Marker icon fix (for CRA/Vite/Webpack):
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+});
+
+// Helper component to dynamically update the map position
+function UpdateMapCenter({ latitude, longitude }) {
+  const map = useMap();
+  useEffect(() => {
+    map.setView([latitude, longitude], 14);
+  }, [latitude, longitude, map]);
+  return null;
+}
 
 function GalleryDetails({ selectedGallery, onAddToFavorites }) {
-  // If no gallery is selected yet, display a simple message
   if (!selectedGallery) {
     return (
-      <section className="border p-4">
-        <h2 className="text-lg font-semibold mb-3">Gallery Information</h2>
-        <p>Please select a gallery to view details.</p>
+      <section className="flex items-center justify-center h-full bg-gradient-to-br from-gray-700 to-gray-800 text-gray-300 rounded-xl shadow-lg">
+        <p className="text-xl">Select a gallery to view details</p>
       </section>
     );
   }
 
-  // Destructure gallery fields for easier usage
   const {
     galleryName,
     galleryNativeName,
@@ -26,55 +39,73 @@ function GalleryDetails({ selectedGallery, onAddToFavorites }) {
     galleryWebSite,
     latitude,
     longitude,
-    galleryID
+    galleryID,
   } = selectedGallery;
 
   return (
-    <section className="border p-4 flex flex-col gap-4 h-full">
-      <h2 className="text-lg font-semibold mb-3">Gallery Information</h2>
-      <p><strong>Name:</strong> {galleryName}</p>
-      <p><strong>Native Name:</strong> {galleryNativeName}</p>
-      <p><strong>City:</strong> {galleryCity}</p>
-      <p><strong>Address:</strong> {galleryAddress}</p>
-      <p><strong>Country:</strong> {galleryCountry}</p>
-      <p>
-        <strong>Website:</strong>{' '}
-        {galleryWebSite ? (
-          <a
-            href={galleryWebSite}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:underline"
-          >
-            {galleryWebSite}
-          </a>
-        ) : (
-          'N/A'
+    <section className="p-6 flex flex-col gap-6 h-full overflow-auto bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl shadow-lg">
+      <header className="pb-3 border-b border-gray-600">
+        <h2 className="text-4xl font-bold text-white tracking-wide">{galleryName}</h2>
+        {galleryNativeName && (
+          <h3 className="text-xl text-gray-300 italic tracking-wide mt-1">{galleryNativeName}</h3>
         )}
-      </p>
+      </header>
 
-      {/* Add to Favorites Button */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="p-4 bg-gray-600/70 rounded-lg shadow-md">
+          <h4 className="text-xs uppercase tracking-widest text-gray-400">📍 Location</h4>
+          <p className="text-lg font-semibold text-gray-200 mt-1">
+            {galleryCity}, {galleryCountry}
+          </p>
+        </div>
+
+        <div className="p-4 bg-gray-600/70 rounded-lg shadow-md">
+          <h4 className="text-xs uppercase tracking-widest text-gray-400">🏠 Address</h4>
+          <p className="text-lg font-semibold text-gray-200 mt-1">{galleryAddress}</p>
+        </div>
+
+        {galleryWebSite && (
+          <div className="sm:col-span-2 p-4 bg-gray-600/70 rounded-lg shadow-md">
+            <h4 className="text-xs uppercase tracking-widest text-gray-400">🌐 Website</h4>
+            <a
+              href={galleryWebSite}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-lg font-semibold text-indigo-300 hover:text-indigo-400 hover:underline break-words mt-1 inline-block"
+            >
+              {galleryWebSite}
+            </a>
+          </div>
+        )}
+      </div>
+
       <button
         type="button"
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="w-max px-6 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition duration-200 transform hover:scale-105 active:scale-95"
         onClick={() => onAddToFavorites(galleryID)}
       >
-        Add to Favorites
+        ❤️ Add to Favorites
       </button>
 
-      {/* Example Map Section */}
-      <div className="mt-6 h-64 w-full bg-gray-100 flex items-center justify-center text-gray-400">
-        {/* If using React Leaflet, you could do something like:
-        
-        <MapContainer center={[Latitude, Longitude]} zoom={13} className="h-full w-full">
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <Marker position={[Latitude, Longitude]}>
-            <Popup>{GalleryName}</Popup>
+      <div className="h-[350px] w-full rounded-xl shadow-md overflow-hidden border-4 border-gray-600">
+        <MapContainer
+          center={[latitude, longitude]}
+          zoom={14}
+          scrollWheelZoom={false}
+          className="h-full w-full"
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+          />
+          <Marker position={[latitude, longitude]}>
+            <Popup>
+              <strong>{galleryName}</strong><br />
+              {galleryAddress}, {galleryCity}
+            </Popup>
           </Marker>
+          <UpdateMapCenter latitude={latitude} longitude={longitude} />
         </MapContainer>
-        
-        */}
-        <span>Map Placeholder</span>
       </div>
     </section>
   );
