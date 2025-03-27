@@ -1,11 +1,13 @@
 // PaintingPopup.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
 function PaintingPopup({ painting, isOpen, onClose, onAddToFavorites }) {
   if (!painting) return null;
+
+  const [imageLoading, setImageLoading] = useState(true);
 
   const {
     title,
@@ -70,11 +72,20 @@ function PaintingPopup({ painting, isOpen, onClose, onAddToFavorites }) {
             )}
         </div>
 
-        <img
-          src={`https://res.cloudinary.com/funwebdev/image/upload/w_600/art/paintings/square/${imageFileName.toString().padStart(6, '0')}.jpg`}
-          alt={title}
-          className="rounded-md shadow-sm my-2"
-        />
+        <div className="relative my-4">
+            {imageLoading && (
+                <div className="absolute inset-0 flex justify-center items-center bg-gray-800 rounded-lg">
+                    <div className="animate-spin rounded-full h-8 w-8 border-4 border-indigo-400 border-t-transparent"></div>
+                </div>
+            )}
+
+            <img
+                src={`https://res.cloudinary.com/funwebdev/image/upload/w_600/art/paintings/square/${imageFileName.toString().padStart(6, '0')}.jpg`}
+                alt={title}
+                className={`rounded-lg shadow-lg w-full transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+                onLoad={() => setImageLoading(false)}
+            />
+        </div>
 
         {/* Dominant Colors as Boxes */}
         {colors.length > 0 && (
