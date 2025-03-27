@@ -1,9 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
+import PaintingPopup from '../PaintingPopup/PaintingPopup';
 
 function PaintingsList({ paintings, artists, onSelectPainting }) {
   const [sortField, setSortField] = useState('title');
   const [sortDirection, setSortDirection] = useState('asc');
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedPainting, setSelectedPainting] = useState(null);
 
   const sortedPaintings = useMemo(() => {
     return [...paintings].sort((a, b) => {
@@ -30,6 +33,26 @@ function PaintingsList({ paintings, artists, onSelectPainting }) {
       setSortField(field);
       setSortDirection('asc');
     }
+  };
+
+  const handleRowClick = (paintingId) => {
+    const painting = paintings.find(p => p.paintingId === paintingId);
+    const artist = artists.find(a => a.artistId === painting.artistId);
+    setSelectedPainting({
+      ...painting,
+      artistName: artist ? `${artist.firstName} ${artist.lastName}` : 'Unknown Artist'
+    });
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setSelectedPainting(null);
+  };
+
+  const handleAddToFavorites = (paintingId) => {
+    // Add favorite logic here
+    console.log(`Painting ${paintingId} added to favorites`);
   };
 
   return (
@@ -87,7 +110,8 @@ function PaintingsList({ paintings, artists, onSelectPainting }) {
               <tr
                 key={p.paintingId}
                 className="hover:bg-indigo-600/40 cursor-pointer transition duration-150 border-b border-gray-600"
-                onClick={() => onSelectPainting?.(p.paintingId)}
+                // onClick={() => onSelectPainting?.(p.paintingId)}
+                onClick={() => handleRowClick(p.paintingId)}
               >
                 <td className="px-3 py-2 text-gray-200">{p.title}</td>
                 <td className="px-3 py-2 text-gray-200">
@@ -116,6 +140,13 @@ function PaintingsList({ paintings, artists, onSelectPainting }) {
               </tr>
             ))}
           </tbody>
+          
+          <PaintingPopup
+            painting={selectedPainting}
+            isOpen={isPopupOpen}
+            onClose={handleClosePopup}
+            onAddToFavorites={handleAddToFavorites}
+          />
         </table>
 
         {paintings.length === 0 && (
