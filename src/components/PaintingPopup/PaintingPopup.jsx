@@ -35,8 +35,8 @@ function PaintingPopup({ painting, isOpen, onClose, onAddToFavorites }) {
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Painting Details"
-      className="bg-gray-800 rounded-xl p-8 shadow-xl max-w-4xl w-full mx-4 my-12 relative"
-      overlayClassName="fixed inset-0 bg-black/60 flex justify-center items-center"
+      className="bg-gray-800 rounded-xl p-8 shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
+      overlayClassName="fixed inset-0 bg-black/60 flex justify-center items-center p-4 z-50"
     >
       <button
         onClick={onClose}
