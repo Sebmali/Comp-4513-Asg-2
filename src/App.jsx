@@ -1,14 +1,9 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { supabase } from './Supabase/supabaseClient'
-import LoginPage from "./components/LoginPage/LoginPage.jsx"
 import './App.css'
-import NotFound from './components/NotFound'
-import GalleryView from './components/GalleyView/GalleryView'
-import ArtistView from './components/ArtistView/ArtistView'
-import GenreView from './components/GenreView/GenreView'
-import NavBar from './components/NavBar'
-import FooterBar from './components/FooterBar'
+import AppRoutes from './AppRoutes'
+import { Browser } from 'leaflet';
+import { BrowserRouter } from 'react-router';
 
 function App() {
   const [galleries, setGalleries] = useState([]);
@@ -137,21 +132,18 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <div className="h-screen flex flex-col overflow-hidden">
-        <NavBar favourites={favourites} setFavourites={setFavourites}/>
-        <div className="flex-grow overflow-hidden flex flex-col">
-          <Routes>
-            <Route path="/" element={<LoginPage/>} />
-            <Route path="/galleries" element={<GalleryView galleries={galleries} paintings={paintings} artists={artists} favourites={favourites} setFavourites={setFavourites}/>} />
-            <Route path="/artists" element={<ArtistView artists={artists} paintings={paintings} favourites={favourites} setFavourites={setFavourites}/>} />
-            <Route path="/genres" element={<GenreView genres={genres} paintings={paintings} artists={artists} paintinggenres={paintinggenres} favourites={favourites} eras={eras} setFavourites={setFavourites}/>} />
-            <Route path="*" element={<NotFound />} /> {/* Potentially want to redirect users to home page */}
-          </Routes>
-        </div>
-        <FooterBar/>
-      </div>
-    </BrowserRouter>
+      <BrowserRouter>
+        <AppRoutes
+          galleries={galleries}
+          paintings={paintings}
+          artists={artists}
+          genres={genres}
+          paintinggenres={paintinggenres}
+          eras={eras}
+          favourites={favourites}
+          setFavourites={setFavourites}
+        />
+      </BrowserRouter>
   );
 }
 
