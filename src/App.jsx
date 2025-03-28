@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-<<<<<<< HEAD
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { supabase } from './Supabase/supabaseClient.js'
 import LoginPage from "./components/LoginPage/LoginPage.jsx"
@@ -11,13 +10,6 @@ import GenreView from './components/GenreView/GenreView.jsx'
 import NavBar from './components/NavBar.jsx'
 import FooterBar from './components/FooterBar.jsx'
 import AboutPage from './components/AboutPage/AboutPage.jsx'
-=======
-import { supabase } from './Supabase/supabaseClient'
-import './App.css'
-import AppRoutes from './AppRoutes'
-import { Browser } from 'leaflet';
-import { BrowserRouter } from 'react-router';
->>>>>>> 14fbf3a15cfc69f6e68faa366bc252f0bf67046b
 
 function App() {
   const [galleries, setGalleries] = useState([]);
