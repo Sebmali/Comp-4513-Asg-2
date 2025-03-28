@@ -1,6 +1,6 @@
 import React from 'react';
 
-function GalleryList({ galleries, onSelectGallery }) {
+function GalleryList({ galleries, onSelectGallery, selectedGalleryId }) {
   const sortedGalleries = [...galleries].sort((a, b) =>
     a.galleryName.localeCompare(b.galleryName)
   );
@@ -14,13 +14,13 @@ function GalleryList({ galleries, onSelectGallery }) {
             <li key={g.galleryId}>
               <button
                 type="button"
-                className="block w-full text-left px-4 py-3
+                onClick={() => onSelectGallery(g.galleryId)}
+                className={`block w-full text-left px-4 py-3
                   bg-gray-600/80 hover:bg-indigo-600 hover:text-white
                   rounded-lg shadow-md transform transition duration-200
                   hover:scale-[1.03] active:scale-[0.98] focus:ring-2
-                  focus:ring-indigo-400 focus:ring-offset-2
-                  focus:ring-offset-gray-800"
-                onClick={() => onSelectGallery(g.galleryId)}
+                  focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-gray-800
+                  ${selectedGalleryId === g.galleryId ? "bg-indigo-600" : ""}`}
               >
                 {g.galleryName}
               </button>

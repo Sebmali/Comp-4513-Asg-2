@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiSearch, FiMenu, FiHeart } from 'react-icons/fi';
+import FavouritesPopup from './FavouritesPopup/FavouritesPopup';
 
-function NavBar ({ favourites = []}) {
+function NavBar ({ favourites, setFavourites }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFavouritesOpen, setIsFavouritesOpen] = useState(false);
@@ -20,11 +21,9 @@ function NavBar ({ favourites = []}) {
   };
 
   const handleFavouritesToggle = () => {
-    if (isFavouritesOpen.length > 0) {
-      setIsFavouritesOpen(!isFavouritesOpen);
-      setIsSearchOpen(false);
-      setIsMenuOpen(false);
-    }
+    setIsFavouritesOpen(!isFavouritesOpen);
+    setIsSearchOpen(false);
+    setIsMenuOpen(false);
   }
 
   return (
@@ -37,7 +36,6 @@ function NavBar ({ favourites = []}) {
             alt="Artisphere Logo"
             className="h-auto w-45"
           />
-          {/* <h1 className="m1-2 text-4x1] font-extrabold leading-tight tracking-wide uppercase text-bg-white p-4">Artisphere</h1> */}
         </Link>
       </div>
 
@@ -51,7 +49,7 @@ function NavBar ({ favourites = []}) {
                   rounded-lg shadow-md transform transition duration-200
                   hover:scale-[1.03] active:scale-[0.98] focus:ring-2
                   focus:ring-indigo-400 focus:ring-offset-2
-                  focus:ring-offset-gray-800 ${
+                  focus:ring-offset-gray-800 text-white ${
             favourites.length > 0 ? 'hover:bg-gray-200 cursor-pointer' : 'opacity-40 cursor-default'
           }`}
           aria-label="Favourites"
@@ -59,6 +57,17 @@ function NavBar ({ favourites = []}) {
         >
           <FiHeart size={20} />
         </button>
+        {isFavouritesOpen && <FavouritesPopup isOpen={isFavouritesOpen} 
+                                              favourites={favourites} 
+                                              onClose={() => (setIsFavouritesOpen(false))}
+                                              removeFavourite={(itemToRemove) =>
+                                                setFavourites(prev => prev.filter(item => {
+                                                  if (item.paintingId) return item.paintingId !== itemToRemove.paintingId;
+                                                  if (item.galleryId) return item.galleryId !== itemToRemove.galleryId;
+                                                  if (item.artistId) return item.artistId !== itemToRemove.artistId;
+                                                  return true;
+                                                }))}
+                                              clearFavourites={() => setFavourites([])}/>}
         
         {/* Search Icon */}
         <button
@@ -68,8 +77,7 @@ function NavBar ({ favourites = []}) {
                   rounded-lg shadow-md transform transition duration-200
                   hover:scale-[1.03] active:scale-[0.98] focus:ring-2
                   focus:ring-indigo-400 focus:ring-offset-2
-                  focus:ring-offset-gray-800"
-          // className="p-2 hover:bg-gray-200 rounded-full"
+                  focus:ring-offset-gray-800 text-white"
           aria-label="Search"
         >
           <FiSearch size={20} />
@@ -83,25 +91,12 @@ function NavBar ({ favourites = []}) {
                   rounded-lg shadow-md transform transition duration-200
                   hover:scale-[1.03] active:scale-[0.98] focus:ring-2
                   focus:ring-indigo-400 focus:ring-offset-2
-                  focus:ring-offset-gray-800"
+                  focus:ring-offset-gray-800 text-white"
           aria-label="Menu"
         >
           <FiMenu size={20} />
         </button>
       </div>
-
-      {/* FAVOURITES DROPDOWN */}
-      {isFavouritesOpen && (
-        <div className="absolute top-full right-4 mt-2 w-64 bg-gray-800 border shadow-md p-2 z-10 rounded-md">
-        <ul className="space-y-1">
-          {favourites.map((item, index) => (
-            <li key={index} className="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-md text-white">
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
 
       {/* SEARCH DROPDOWN */}
       {isSearchOpen && (

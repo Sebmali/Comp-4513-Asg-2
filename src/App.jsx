@@ -10,12 +10,17 @@ import ArtistView from './components/ArtistView/ArtistView'
 
 // Import your new GenreView
 import GenreView from './components/GenreView/GenreView'
+import NavBar from './components/NavBar'
+import FooterBar from './components/FooterBar'
 
 function App() {
   const [galleries, setGalleries] = useState([]);
   const [paintings, setPaintings] = useState([]);
   const [artists, setArtists] = useState([]);
-  const [genres, setGenres] = useState([]);  // <--- NEW
+  const [genres, setGenres] = useState([]);  
+  const [paintinggenres, setPaintingGenres] = useState([]);
+  const [eras, setEras] = useState([]);
+  const [favourites, setFavourites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -76,7 +81,7 @@ function App() {
     fetchArtists();
   }, []);
 
-  // Fetch genres (NEW)
+  // Fetch genres 
   useEffect(() => {
     async function fetchGenres() {
       try {
@@ -93,6 +98,40 @@ function App() {
     fetchGenres();
   }, []);
 
+  // Fetch painting genres
+  useEffect(() => {
+    async function fetchPaintingGenres() {
+      try {
+        const { data, error } = await supabase.from('paintinggenres').select('*');
+        if (error) throw error;
+        setPaintingGenres(data);
+      } catch (error) {
+        console.error('Error fetching painting genres: ', error.message);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPaintingGenres();
+  }, []);
+
+  // Fetch eras
+  useEffect(() => {
+    async function fetchEras() {
+      try {
+        const { data, error } = await supabase.from('eras').select('*');
+        if (error) throw error;
+        setEras(data);
+      } catch (error) {
+        console.error('Error fetching eras: ', error.message);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchEras();
+  }, []);
+
   if (loading) {
     return <div className="p-4 text-gray-100">Loading...</div>;
   }
@@ -102,45 +141,18 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Login route */}
-        <Route path="/" element={<LoginPage />} />
-
-        {/* Galleries route */}
-        <Route
-          path="/galleries"
-          element={
-            <GalleryView
-              galleries={galleries}
-              paintings={paintings}
-              artists={artists}
-            />
-          }
-        />
-
-        {/* Artists route */}
-        <Route
-          path="/artists"
-          element={
-            <ArtistView
-              artists={artists}
-              paintings={paintings}
-            />
-          }
-        />
-
-        {/* NEW: Genre route */}
-        <Route
-          path="/genres"
-          element={
-            <GenreView
-              genres={genres}
-              paintings={paintings}
-              artists={artists}
-            />
-          }
-        />
-      </Routes>
+      <div className="h-screen flex flex-col overflow-hidden">
+        <NavBar favourites={favourites} setFavourites={setFavourites}/>
+        <div className="flex-grow overflow-hidden flex flex-col">
+          <Routes>
+            <Route path="/" element={<LoginPage/>} />
+            <Route path="/galleries" element={<GalleryView galleries={galleries} paintings={paintings} artists={artists} favourites={favourites} setFavourites={setFavourites}/>} />
+            <Route path="/artists" element={<ArtistView artists={artists} paintings={paintings} favourites={favourites} setFavourites={setFavourites}/>} />
+            <Route path="/genres" element={<GenreView genres={genres} paintings={paintings} artists={artists} paintinggenres={paintinggenres} favourites={favourites} eras={eras} setFavourites={setFavourites}/>} />
+          </Routes>
+        </div>
+        <FooterBar/>
+      </div>
     </BrowserRouter>
   );
 }

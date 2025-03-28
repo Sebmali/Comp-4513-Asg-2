@@ -6,8 +6,6 @@ import App from './App.jsx'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <StrictMode>
-    <div className="h-screen">
       <App />
-    </div>
   </StrictMode>,
 )

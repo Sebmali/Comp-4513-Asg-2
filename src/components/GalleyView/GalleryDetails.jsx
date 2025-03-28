@@ -21,13 +21,19 @@ function UpdateMapCenter({ latitude, longitude }) {
   return null;
 }
 
-function GalleryDetails({ selectedGallery, onAddToFavorites }) {
+function GalleryDetails({ selectedGallery, favourites, setFavourites }) {
   if (!selectedGallery) {
     return (
       <section className="flex items-center justify-center h-full bg-gradient-to-br from-gray-700 to-gray-800 text-gray-300 rounded-xl shadow-lg">
         <p className="text-xl">Select a gallery to view details</p>
       </section>
     );
+  }
+
+  const handleAddToFavorites = (selectedGallery) => {
+    if (selectedGallery && !favourites.find((g) => g.galleryId === selectedGallery.galleryId)) {
+      setFavourites([...favourites, selectedGallery]);
+    }
   }
 
   const {
@@ -39,7 +45,6 @@ function GalleryDetails({ selectedGallery, onAddToFavorites }) {
     galleryWebSite,
     latitude,
     longitude,
-    galleryID,
   } = selectedGallery;
 
   return (
@@ -82,7 +87,9 @@ function GalleryDetails({ selectedGallery, onAddToFavorites }) {
       <button
         type="button"
         className="w-max px-6 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition duration-200 transform hover:scale-105 active:scale-95"
-        onClick={() => onAddToFavorites(galleryID)}
+        onClick={() => {
+          handleAddToFavorites(selectedGallery);
+        }}
       >
         ❤️ Add to Favorites
       </button>

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 import PaintingPopup from '../PaintingPopup/PaintingPopup';
 
-function PaintingsList({ paintings, artists, onSelectPainting }) {
+function PaintingsList({ paintings, artists, favourites, setFavourites }) {
   const [sortField, setSortField] = useState('title');
   const [sortDirection, setSortDirection] = useState('asc');
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -51,8 +51,10 @@ function PaintingsList({ paintings, artists, onSelectPainting }) {
   };
 
   const handleAddToFavorites = (paintingId) => {
-    // Add favorite logic here
-    console.log(`Painting ${paintingId} added to favorites`);
+    const painting = paintings.find(p => p.paintingId === paintingId);
+    if (painting && !favourites.find(p => p.paintingId === paintingId)) {
+      setFavourites([...favourites, painting]);
+    }
   };
 
   return (
