@@ -39,7 +39,7 @@ function NavBar ({ favourites, setFavourites }) {
         </Link>
       </div>
 
-      {/* Right side: Search icon + Hamburger menu */}
+      {/* Right side: Menus */}
       <div className="flex items-center space-x-4">
         {/* Favourites Icon */}
         <button
@@ -69,7 +69,7 @@ function NavBar ({ favourites, setFavourites }) {
                                                 }))}
                                               clearFavourites={() => setFavourites([])}/>}
         
-        {/* Search Icon */}
+        {/* Search Icon //Here for a future search implementation feature.
         <button
           onClick={handleSearchToggle}
           className="block w-full text-left px-4 py-3
@@ -81,7 +81,7 @@ function NavBar ({ favourites, setFavourites }) {
           aria-label="Search"
         >
           <FiSearch size={20} />
-        </button>
+        </button> */}
 
         {/* Hamburger Menu Icon */}
         <button
@@ -178,20 +178,6 @@ function NavBar ({ favourites, setFavourites }) {
             </li>
             <li>
               <Link
-                to="/favorites"
-                className="block w-full text-left px-4 py-3
-                  bg-gray-600/80 hover:bg-indigo-600
-                  rounded-lg shadow-md transform transition duration-200
-                  hover:scale-[1.03] active:scale-[0.98] focus:ring-2
-                  focus:ring-indigo-400 focus:ring-offset-2
-                  focus:ring-offset-gray-800 text-white"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Favorites
-              </Link>
-            </li>
-            <li>
-              <Link
                 to="/about"
                 className="block w-full text-left px-4 py-3
                   bg-gray-600/80 hover:bg-indigo-600
@@ -202,6 +188,20 @@ function NavBar ({ favourites, setFavourites }) {
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                className="block w-full text-left px-4 py-3
+                  bg-gray-600/80 hover:bg-indigo-600
+                  rounded-lg shadow-md transform transition duration-200
+                  hover:scale-[1.03] active:scale-[0.98] focus:ring-2
+                  focus:ring-indigo-400 focus:ring-offset-2
+                  focus:ring-offset-gray-800 text-red-500"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Log Out
               </Link>
             </li>
           </ul>

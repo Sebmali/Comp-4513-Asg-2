@@ -1,15 +1,33 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { supabase } from './Supabase/supabaseClient.js'
 import LoginPage from "./components/LoginPage/LoginPage.jsx"
 import './App.css'
 import NotFound from './components/NotFound.jsx'
-import GalleryView from './components/GalleyView/GalleryView.jsx'
+import GalleryView from './components/GalleryView/GalleryView.jsx'
 import ArtistView from './components/ArtistView/ArtistView.jsx'
 import GenreView from './components/GenreView/GenreView.jsx'
+import PaintingView from './components/PaintingView/PaintingView.jsx'
 import NavBar from './components/NavBar.jsx'
 import FooterBar from './components/FooterBar.jsx'
 import AboutPage from './components/AboutPage/AboutPage.jsx'
+
+function Layout({ children, favourites, setFavourites}) {
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/';
+
+  return (
+    <div className="h-screen flex flex-col overflow-hidden">
+      {/* Only render NavBar if not on the login page */}
+      {!isLoginPage && <NavBar favourites={favourites} setFavourites={setFavourites} />}
+      <div className="flex-grow overflow-hidden flex flex-col">
+        {children}
+      </div>
+      {/* Only render FooterBar if not on the login page */}
+      {!isLoginPage && <FooterBar />}
+    </div>
+  );
+}
 
 function App() {
   const [galleries, setGalleries] = useState([]);
@@ -139,20 +157,17 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="h-screen flex flex-col overflow-hidden">
-        <NavBar favourites={favourites} setFavourites={setFavourites}/>
-        <div className="flex-grow overflow-hidden flex flex-col">
-          <Routes>
-            <Route path="/" element={<LoginPage/>} />
-            <Route path="/galleries" element={<GalleryView galleries={galleries} paintings={paintings} artists={artists} favourites={favourites} setFavourites={setFavourites}/>} />
-            <Route path="/artists" element={<ArtistView artists={artists} paintings={paintings} favourites={favourites} setFavourites={setFavourites}/>} />
-            <Route path="/genres" element={<GenreView genres={genres} paintings={paintings} artists={artists} paintinggenres={paintinggenres} favourites={favourites} eras={eras} setFavourites={setFavourites}/>} />
-            <Route path="/about" element={<AboutPage />}/>
-            <Route path="*" element={<NotFound />} /> {/* Potentially want to redirect users to home page */}
-          </Routes>
-        </div>
-        <FooterBar/>
-      </div>
+      <Layout favourites={favourites} setFavourites={setFavourites}>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/galleries" element={<GalleryView galleries={galleries} paintings={paintings} artists={artists} favourites={favourites} setFavourites={setFavourites} />} />
+          <Route path="/artists" element={<ArtistView artists={artists} paintings={paintings} favourites={favourites} setFavourites={setFavourites} />} />
+          <Route path="/genres" element={<GenreView genres={genres} paintings={paintings} artists={artists} paintinggenres={paintinggenres} favourites={favourites} eras={eras} setFavourites={setFavourites} />} />
+          <Route path="/paintings" element={<PaintingView paintings={paintings} artists={artists} galleries={galleries} favourites={favourites} setFavourites={setFavourites} />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 }

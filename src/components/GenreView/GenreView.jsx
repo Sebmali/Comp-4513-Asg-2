@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GenreList from "./GenreList"; // Import your new component
 import GenreDetails from "./GenreDetails"; // Import your new component
-import PaintingsList from "../GalleyView/PaintingList"; // Reuse your existing component
+import PaintingsList from "../GalleryView/PaintingList"; // Reuse your existing component
 
 function GenreView({ genres, paintings, artists, favourites, setFavourites, paintinggenres, eras }) {
   const [selectedGenreId, setSelectedGenreId] = useState(null);

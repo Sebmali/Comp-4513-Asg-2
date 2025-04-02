@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PaintingsList from "../GalleyView/PaintingList"; // Reuse your existing component
+import PaintingsList from "../GalleryView/PaintingList"; // Reuse your existing component
 import ArtistList from "./ArtistList";
 import ArtistDetails from "./ArtistDetails";
 
