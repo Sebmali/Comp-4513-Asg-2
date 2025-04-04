@@ -64,20 +64,10 @@ function ArtistDetails({ selectedArtist, favourites, setFavourites }) {
           </div>
         </div>
   
-        <button
-          type="button"
-          onClick={() => {
-            handleAddToFavorites(selectedArtist)
-          }}
-          className="w-max px-6 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition duration-200 transform hover:scale-105 active:scale-95"
-        >
-          ❤️ Add to Favorites
-        </button>
-  
-        <div className="h-[350px] w-full rounded-xl shadow-md overflow-hidden border-4 border-gray-600">
-          {artistImage ? (
+        <div className="h-[350px] w-full rounded-xl shadow-md border-4 border-gray-600">
+          {artistId ? (
             <img
-              src={artistImage}
+              src={`/art-images/artists/square/${artistId}.jpg`}
               alt={`${firstName} ${lastName}`}
               className="h-full w-full object-cover"
             />
@@ -87,6 +77,16 @@ function ArtistDetails({ selectedArtist, favourites, setFavourites }) {
             </div>
           )}
         </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            handleAddToFavorites(selectedArtist)
+          }}
+          className="w-max px-6 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition duration-200 transform hover:scale-105 active:scale-95"
+        >
+          ❤️ Add to Favorites
+        </button>
       </section>
     );
   }

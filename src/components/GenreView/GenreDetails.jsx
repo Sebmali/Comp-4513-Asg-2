@@ -9,14 +9,9 @@ function GenreDetails({ selectedGenre, eras, favourites, setFavourites }) {
     );
   }
 
-  const handleAddToFavorites = (selectedGenre) => {
-    if (selectedGenre && !favourites.find((g) => g.genreId === selectedGenre.genreId)) {
-      setFavourites([...favourites, selectedGenre]);
-    }
-  };
-
   const {
     genreName,
+    genreId,
     description,
     genreLink,
     eraId,
@@ -54,6 +49,21 @@ function GenreDetails({ selectedGenre, eras, favourites, setFavourites }) {
           <p className="text-lg font-semibold text-gray-200 mt-1">
             {description || "No description available."}
           </p>
+        </div>
+
+        {/* Genre Image */}
+        <div className="h-[350px] w-full rounded-xl shadow-md border-4 border-gray-600">
+          {genreId ? (
+            <img
+              src={`/art-images/genres/${genreId}.jpg`}
+              alt={`${genreName}`}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div className="flex items-center justify-center h-full w-full bg-gray-500 text-gray-200">
+              No Image Available
+            </div>
+          )}
         </div>
 
         {/* Genre Link */}
