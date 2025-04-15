@@ -32,6 +32,6 @@ This modal allows the user to view the information of a painting and even add th
 This modal allows the user to reference their chosen favourites list, or empty it if they want to start over. It is set to disabled if they have no current favourites
 
 ## Contributors
-markdown
-Sebastian Maliczewski
-Daniel Bahrami
+
+- [Sebastian Maliczewski](https://github.com/Sebmali)
+- [Daniel Bahrami](https://github.com/danielbram4)
