@@ -52,9 +52,12 @@ function PaintingsList({ paintings, artists, favourites, setFavourites }) {
 
   const handleAddToFavorites = (paintingId) => {
     const painting = paintings.find(p => p.paintingId === paintingId);
-    if (painting && !favourites.find(p => p.paintingId === paintingId)) {
-      setFavourites([...favourites, painting]);
-    }
+    setFavourites((prevFavourites) => {
+      if (painting && !prevFavourites.find(p => p.paintingId === paintingId)) {
+        return [...prevFavourites, painting];
+      }
+      return prevFavourites;
+    });
   };
 
   return (
