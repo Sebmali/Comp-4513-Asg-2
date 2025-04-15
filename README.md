@@ -1,12 +1,37 @@
-# React + Vite
+### COMP 4513 (Winter 2025)
+Live Version: [https://comp4513-asg2-prod.vercel.app/ ](https://web3asg2-three.vercel.app)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Assignment #2: Art Analysis
+Art Analysis is a custom made website using React and Tailwindcss that allows art fans the freedom to view and favourites galleries, paintings, artists data and visualizations.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Galleries, paintings, artists, and genres view
+- Interactive Features (Such as maps)
+- Custom Favourites list Creation
 
-## Expanding the ESLint configuration
+## Login View
+This view introduces the user to the app, with a login button to head to the home view page, and a registration button (not currently active).
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Gallery View
+This view allows users to search through a list of galleries, view the data associated to a gallery as well as the paintings associated with that gallery.
+
+## Artist View
+This view allows users to search through a list of artists, view the data associated to a artist as well as the paintings associated with that artist. 
+
+## Painting View
+This view allows users to search through a list of paintings and view the data associated to each painting. 
+
+## Genre View 
+This view allows users to search through a list of genres, view the data ssocaited to a genre as well as the paintings associated with that genre. 
+
+## Painting Details
+This modal allows the user to view the information of a painting and even add them to their favourites list if they choose.
+
+## Favourites List
+This modal allows the user to reference their chosen favourites list, or empty it if they want to start over. It is set to disabled if they have no current favourites
+
+## Contributors
+markdown
+Sebastian Maliczewski
+Daniel Bahrami
