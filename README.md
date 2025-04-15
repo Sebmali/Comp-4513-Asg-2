@@ -12,7 +12,7 @@ Art Analysis is a custom made website using React and Tailwindcss that allows ar
 
 ## Login View
 This view introduces the user to the app, with a login button to head to the home view page, and a registration button (not currently active).
-![image](https://github.com/Sebmali/Comp-4513-Asg-2/assets/readMeImages/Artist-View.jpg)
+![image](https://github.com/Sebmali/Comp-4513-Asg-2/blob/main/src/assets/readMeImages/Artist%20View.jpg)
 
 ## Gallery View
 This view allows users to search through a list of galleries, view the data associated to a gallery as well as the paintings associated with that gallery.
